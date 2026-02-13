@@ -10,16 +10,16 @@ import Cars from './pages/Cars.jsx';
 function App() {
   return (
     <Router>
+      <>
       <Navbar />
-      <div className="container mt-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/flights" element={<Flights />} />
-          <Route path="/tours" element={<Tours />} />
-          <Route path="/hotels" element={<Hotels />} />
-          <Route path="/cars" element={<Cars />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/flights" element={<Flights />} />
+        <Route path="/tours" element={<Tours />} />
+        <Route path="/hotels" element={<Hotels />} />
+        <Route path="/cars" element={<Cars />} />
+      </Routes>
+    </>
     </Router>
   );
 }
