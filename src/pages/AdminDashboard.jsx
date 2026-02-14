@@ -752,7 +752,7 @@ export default function AdminDashboard() {
                   <Tooltip 
                     contentStyle={{ 
                       background: '#FFF', 
-                      border: '1px solid '#E2E8F0',
+                      border: '1px solid "#E2E8F0"',
                       borderRadius: '12px',
                       padding: '12px'
                     }}
@@ -781,7 +781,7 @@ export default function AdminDashboard() {
                   <Tooltip 
                     contentStyle={{ 
                       background: '#FFF', 
-                      border: '1px solid '#E2E8F0',
+                      border: '1px solid "#E2E8F0"',
                       borderRadius: '12px',
                       padding: '12px'
                     }}
