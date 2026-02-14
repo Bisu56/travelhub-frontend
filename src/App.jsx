@@ -9,6 +9,7 @@ import Cars from './pages/Cars.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 import { useAuth } from './context/AuthContext.jsx';
 
 function ProtectedRoute({ children }) {
@@ -34,6 +35,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
               </ProtectedRoute>
             }
           />
