@@ -16,6 +16,7 @@ export function AuthProvider({ children }) {
     return new Promise((resolve, reject) => {
       if (email && password) {
         const user = { email };
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
         setCurrentUser(user);
         resolve(user);
       } else {
@@ -30,6 +31,7 @@ export function AuthProvider({ children }) {
     return new Promise((resolve, reject) => {
       if (email && password) {
         const user = { email };
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
         setCurrentUser(user);
         resolve(user);
       } else {
@@ -40,6 +42,7 @@ export function AuthProvider({ children }) {
 
   function logout() {
     return new Promise((resolve) => {
+      sessionStorage.removeItem('currentUser');
       setCurrentUser(null);
       resolve();
     });
@@ -48,6 +51,10 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     // This is where you might check if a user is already logged in
     // for example, by checking localStorage for a token.
+    const storedUser = sessionStorage.getItem('currentUser');
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
     setLoading(false);
   }, []);
 
