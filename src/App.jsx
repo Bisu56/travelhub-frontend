@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar.jsx';
+import MainLayout from './components/MainLayout.jsx';
 import Home from './pages/Home.jsx';
 import Flights from './pages/Flights.jsx';
 import Tours from './pages/Tours.jsx';
@@ -20,8 +20,7 @@ function ProtectedRoute({ children }) {
 function App() {
   return (
     <Router>
-      <>
-        <Navbar />
+      <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/flights" element={<Flights />} />
@@ -47,7 +46,7 @@ function App() {
             }
           />
         </Routes>
-      </>
+      </MainLayout>
     </Router>
   );
 }
