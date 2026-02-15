@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Users, DollarSign, ShoppingCart, TrendingUp, Menu, X, Bell, Search, MoreVertical, ArrowUp, ArrowDown } from 'lucide-react';
+import { Users, DollarSign, ShoppingCart, TrendingUp, Menu, X, Bell, Search, MoreVertical, ArrowUp, ArrowDown, Plane, Car, Hotel, Compass } from 'lucide-react';
 
 // Sample data - replace with your actual data source
 const salesData = [
@@ -15,12 +15,12 @@ const salesData = [
 const recentOrders = [
   { id: '#3492', customer: 'Sarah Johnson', amount: '$245.00', status: 'Completed', time: '2 mins ago' },
   { id: '#3491', customer: 'Michael Chen', amount: '$892.00', status: 'Processing', time: '15 mins ago' },
-  { id: '#3490', customer: 'Emma Williams', amount: '$156.00', status: 'Completed', time: '1 hour ago' },
+  { id: '#3490', customer: 'Emma Williams', amount: '56.00', status: 'Completed', time: '1 hour ago' },
   { id: '#3489', customer: 'James Brown', amount: '$423.00', status: 'Pending', time: '2 hours ago' },
 ];
 
 const topProducts = [
-  { name: 'Wireless Headphones', sales: 1247, revenue: '$124,700', trend: '+12%' },
+  { name: 'Wireless Headphones', sales: 1247, revenue: '24,700', trend: '+12%' },
   { name: 'Smart Watch Pro', sales: 892, revenue: '$89,200', trend: '+8%' },
   { name: 'Laptop Stand', sales: 654, revenue: '$32,700', trend: '-3%' },
   { name: 'USB-C Hub', sales: 543, revenue: '$27,150', trend: '+15%' },
@@ -47,9 +47,196 @@ const StatCard = ({ icon: Icon, title, value, change, changeType }) => (
   </div>
 );
 
+const Overview = () => (
+    <>
+        <div className="page-header">
+            <h1 className="page-title">Dashboard Overview</h1>
+            <p className="page-subtitle">Welcome back! Here's what's happening with your business today.</p>
+          </div>
+
+          {/* Stats Cards */}
+          <div className="stats-grid">
+            <StatCard 
+              icon={DollarSign}
+              title="Total Revenue"
+              value="$45,231"
+              change="+20.1%"
+              changeType="positive"
+            />
+            <StatCard 
+              icon={Users}
+              title="Active Users"
+              value="2,845"
+              change="+15.3%"
+              changeType="positive"
+            />
+            <StatCard 
+              icon={ShoppingCart}
+              title="Total Orders"
+              value="1,046"
+              change="+12.5%"
+              changeType="positive"
+            />
+            <StatCard 
+              icon={TrendingUp}
+              title="Growth Rate"
+              value="23.5%"
+              change="-2.4%"
+              changeType="negative"
+            />
+          </div>
+
+          {/* Charts */}
+          <div className="charts-grid">
+            <div className="chart-card">
+              <div className="chart-header">
+                <h3 className="chart-title">Revenue Overview</h3>
+                <div className="chart-tabs">
+                  <button className="chart-tab active">6 Months</button>
+                  <button className="chart-tab">1 Year</button>
+                  <button className="chart-tab">All Time</button>
+                </div>
+              </div>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={salesData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                  <XAxis dataKey="month" stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
+                  <YAxis stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      background: '#FFF', 
+                      border: '1px solid "#E2E8F0"',
+                      borderRadius: '12px',
+                      padding: '12px'
+                    }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="revenue" 
+                    stroke="#3B82F6" 
+                    strokeWidth={3}
+                    dot={{ fill: '#3B82F6', r: 5 }}
+                    activeDot={{ r: 7 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="chart-card">
+              <div className="chart-header">
+                <h3 className="chart-title">Orders</h3>
+              </div>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={salesData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                  <XAxis dataKey="month" stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
+                  <YAxis stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      background: '#FFF', 
+                      border: '1px solid "#E2E8F0"',
+                      borderRadius: '12px',
+                      padding: '12px'
+                    }}
+                  />
+                  <Bar dataKey="orders" fill="#3B82F6" radius={[8, 8, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Tables */}
+          <div className="charts-grid">
+            <div className="table-card">
+              <div className="table-header">
+                <h3 className="table-title">Recent Orders</h3>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentOrders.map((order) => (
+                    <tr key={order.id}>
+                      <td className="order-id">{order.id}</td>
+                      <td>{order.customer}</td>
+                      <td style={{ fontWeight: 700 }}>{order.amount}</td>
+                      <td>
+                        <span className={`status-badge ${order.status.toLowerCase()}`}>
+                          {order.status}
+                        </span>
+                      </td>
+                      <td style={{ color: 'var(--text-secondary)' }}>{order.time}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="table-card">
+              <div className="table-header">
+                <h3 className="table-title">Top Products</h3>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Sales</th>
+                    <th>Revenue</th>
+                    <th>Trend</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topProducts.map((product) => (
+                    <tr key={product.name}>
+                      <td className="product-name">{product.name}</td>
+                      <td>{product.sales.toLocaleString()}</td>
+                      <td style={{ fontWeight: 700 }}>{product.revenue}</td>
+                      <td>
+                        <span className={`product-trend ${product.trend.startsWith('+') ? 'positive' : 'negative'}`}>
+                          {product.trend}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+    </>
+)
+
+const FlightsManagement = () => <div className="text-white">Flights Management</div>
+const HotelsManagement = () => <div className="text-white">Hotels Management</div>
+const ToursManagement = () => <div className="text-white">Tours Management</div>
+const CarsManagement = () => <div className="text-white">Cars Management</div>
+
 export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'overview':
+        return <Overview />;
+      case 'flights':
+        return <FlightsManagement />;
+      case 'hotels':
+        return <HotelsManagement />;
+      case 'tours':
+        return <ToursManagement />;
+      case 'cars':
+        return <CarsManagement />;
+      default:
+        return <Overview />;
+    }
+  }
 
   return (
     <div className="dashboard-container">
@@ -654,14 +841,21 @@ export default function AdminDashboard() {
 
         <div className="nav-section">
           <div className="nav-label">Management</div>
-          <div className="nav-item">
-            Products
+          <div className={`nav-item ${activeTab === 'flights' ? 'active' : ''}`} onClick={() => setActiveTab('flights')}>
+            <Plane size={20} />
+            Flights
           </div>
-          <div className="nav-item">
-            Analytics
+          <div className={`nav-item ${activeTab === 'hotels' ? 'active' : ''}`} onClick={() => setActiveTab('hotels')}>
+            <Hotel size={20} />
+            Hotels
           </div>
-          <div className="nav-item">
-            Settings
+          <div className={`nav-item ${activeTab === 'tours' ? 'active' : ''}`} onClick={() => setActiveTab('tours')}>
+            <Compass size={20} />
+            Tours
+          </div>
+          <div className={`nav-item ${activeTab === 'cars' ? 'active' : ''}`} onClick={() => setActiveTab('cars')}>
+            <Car size={20} />
+            Cars
           </div>
         </div>
       </aside>
@@ -696,166 +890,7 @@ export default function AdminDashboard() {
 
         {/* Content */}
         <div className="content">
-          <div className="page-header">
-            <h1 className="page-title">Dashboard Overview</h1>
-            <p className="page-subtitle">Welcome back! Here's what's happening with your business today.</p>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="stats-grid">
-            <StatCard 
-              icon={DollarSign}
-              title="Total Revenue"
-              value="$45,231"
-              change="+20.1%"
-              changeType="positive"
-            />
-            <StatCard 
-              icon={Users}
-              title="Active Users"
-              value="2,845"
-              change="+15.3%"
-              changeType="positive"
-            />
-            <StatCard 
-              icon={ShoppingCart}
-              title="Total Orders"
-              value="1,046"
-              change="+12.5%"
-              changeType="positive"
-            />
-            <StatCard 
-              icon={TrendingUp}
-              title="Growth Rate"
-              value="23.5%"
-              change="-2.4%"
-              changeType="negative"
-            />
-          </div>
-
-          {/* Charts */}
-          <div className="charts-grid">
-            <div className="chart-card">
-              <div className="chart-header">
-                <h3 className="chart-title">Revenue Overview</h3>
-                <div className="chart-tabs">
-                  <button className="chart-tab active">6 Months</button>
-                  <button className="chart-tab">1 Year</button>
-                  <button className="chart-tab">All Time</button>
-                </div>
-              </div>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={salesData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                  <XAxis dataKey="month" stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
-                  <YAxis stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      background: '#FFF', 
-                      border: '1px solid "#E2E8F0"',
-                      borderRadius: '12px',
-                      padding: '12px'
-                    }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="revenue" 
-                    stroke="#3B82F6" 
-                    strokeWidth={3}
-                    dot={{ fill: '#3B82F6', r: 5 }}
-                    activeDot={{ r: 7 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-
-            <div className="chart-card">
-              <div className="chart-header">
-                <h3 className="chart-title">Orders</h3>
-              </div>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={salesData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                  <XAxis dataKey="month" stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
-                  <YAxis stroke="#94A3B8" style={{ fontSize: '0.85rem' }} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      background: '#FFF', 
-                      border: '1px solid "#E2E8F0"',
-                      borderRadius: '12px',
-                      padding: '12px'
-                    }}
-                  />
-                  <Bar dataKey="orders" fill="#3B82F6" radius={[8, 8, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Tables */}
-          <div className="charts-grid">
-            <div className="table-card">
-              <div className="table-header">
-                <h3 className="table-title">Recent Orders</h3>
-              </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentOrders.map((order) => (
-                    <tr key={order.id}>
-                      <td className="order-id">{order.id}</td>
-                      <td>{order.customer}</td>
-                      <td style={{ fontWeight: 700 }}>{order.amount}</td>
-                      <td>
-                        <span className={`status-badge ${order.status.toLowerCase()}`}>
-                          {order.status}
-                        </span>
-                      </td>
-                      <td style={{ color: 'var(--text-secondary)' }}>{order.time}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="table-card">
-              <div className="table-header">
-                <h3 className="table-title">Top Products</h3>
-              </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Sales</th>
-                    <th>Revenue</th>
-                    <th>Trend</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {topProducts.map((product) => (
-                    <tr key={product.name}>
-                      <td className="product-name">{product.name}</td>
-                      <td>{product.sales.toLocaleString()}</td>
-                      <td style={{ fontWeight: 700 }}>{product.revenue}</td>
-                      <td>
-                        <span className={`product-trend ${product.trend.startsWith('+') ? 'positive' : 'negative'}`}>
-                          {product.trend}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          {renderContent()}
         </div>
       </main>
     </div>
