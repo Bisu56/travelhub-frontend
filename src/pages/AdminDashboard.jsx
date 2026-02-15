@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Users, DollarSign, ShoppingCart, TrendingUp, Menu, X, Bell, Search, MoreVertical, ArrowUp, ArrowDown, Plane, Car, Hotel, Compass } from 'lucide-react';
+import FlightsManagement from '../components/FlightsManagement';
+import HotelsManagement from '../components/HotelsManagement';
+import ToursManagement from '../components/ToursManagement';
+import CarsManagement from '../components/CarsManagement';
+
 
 // Sample data - replace with your actual data source
 const salesData = [
@@ -212,10 +217,7 @@ const Overview = () => (
     </>
 )
 
-const FlightsManagement = () => <div className="text-white">Flights Management</div>
-const HotelsManagement = () => <div className="text-white">Hotels Management</div>
-const ToursManagement = () => <div className="text-white">Tours Management</div>
-const CarsManagement = () => <div className="text-white">Cars Management</div>
+
 
 export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
